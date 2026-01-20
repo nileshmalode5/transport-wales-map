@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+<style>
+.leaflet-popup-content {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  font-size: 12px;
+}
+.card { border:1px solid #e5e5e5; border-radius:12px; padding:12px; box-shadow:0 2px 6px rgba(0,0,0,0.08); }
+.card .title { font-size:16px; font-weight:700; margin-bottom:6px; }
+.pill { display:inline-block; padding:2px 8px; border-radius:999px; font-weight:700; background:#eef2f3; margin-left:8px; }
+.kv { display:grid; grid-template-columns: 1fr auto; gap:6px 12px; margin:8px 0; }
+.divider { height:1px; background:#eee; margin:8px 0; }
+</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_3172ec66f9851dd20fc396f64a4aa9dc {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+    
+                    <style>
+                        .foliumtooltip {
+                            
+                        }
+                       .foliumtooltip table{
+                            margin: auto;
+                        }
+                        .foliumtooltip tr{
+                            text-align: left;
+                        }
+                        .foliumtooltip th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    
+                    <style>
+                        .foliumpopup {
+                            margin: auto;
+                        }
+                       .foliumpopup table{
+                            margin: auto;
+                        }
+                        .foliumpopup tr{
+                            text-align: left;
+                        }
+                        .foliumpopup th{
+                            padding: 2px; padding-right: 8px;
+                        }
+                    </style>
+            
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-search@2.9.7/dist/leaflet-search.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-search@2.9.7/dist/leaflet-search.min.css"/>
+</head>
+<body>
+    
+    
+<div style="position: fixed; bottom: 20px; left: 20px; z-index: 9999;
+     background: white; padding: 10px 12px; border: 1px solid #dcdcdc; border-radius: 8px; font-size: 12px;">
+  <div style="font-weight:700; margin-bottom:4px;">Overall bin</div>
+  <div><span style="display:inline-block;width:12px;height:12px;background:#1f9e89;margin-right:6px;border-radius:2px;"></span>High</div>
+  <div><span style="display:inline-block;width:12px;height:12px;background:#f6c945;margin-right:6px;border-radius:2px;"></span>Med</div>
+  <div><span style="display:inline-block;width:12px;height:12px;background:#d1495b;margin-right:6px;border-radius:2px;"></span>Low</div>
+</div>
+    
+            <div class="folium-map" id="map_3172ec66f9851dd20fc396f64a4aa9dc" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_3172ec66f9851dd20fc396f64a4aa9dc = L.map(
+                "map_3172ec66f9851dd20fc396f64a4aa9dc",
+                {
+                    center: [52.2537420626415, -3.4808254315660383],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 7,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_8af2e3d27505815a1748705dbc319c8f = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_8af2e3d27505815a1748705dbc319c8f.addTo(map_3172ec66f9851dd20fc396f64a4aa9dc);
+        
+    
+            var marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317 = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_1071e6c3c1cdd62b3f44f2c797cd14f9 = L.circleMarker(
+                [52.54437312, -4.055817027],
+                {"bubblingMouseEvents": true, "color": "#d1495b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1495b", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.948989412847046, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_9d78ebc4fef64550900462d8abed45b5 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_342351e692016339bcd4ea3d00c04f68 = $(`<div id="html_342351e692016339bcd4ea3d00c04f68" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Aberdovey <span class="pill">Low</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>25.1</b></div>         <div>Rank</div><div><b>40</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Low</div>         <div>Travel to work</div><div>Low</div>         <div>Road traffic</div><div>Low</div>         <div>Population Density</div><div>Low</div>         <div>Competition</div><div>Med</div>       </div>     </div>     </div>`)[0];
+                popup_9d78ebc4fef64550900462d8abed45b5.setContent(html_342351e692016339bcd4ea3d00c04f68);
+            
+        
+
+        circle_marker_1071e6c3c1cdd62b3f44f2c797cd14f9.bindPopup(popup_9d78ebc4fef64550900462d8abed45b5)
+        ;
+
+        
+    
+    
+            var circle_marker_9f794c721cbc18139760abf23645264d = L.circleMarker(
+                [51.81699049, -3.009143131],
+                {"bubblingMouseEvents": true, "color": "#d1495b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1495b", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.19977226200708, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_16145afff5213b256aa4ddeceef1353f = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_0c77600dc7de905177f2295c030a937c = $(`<div id="html_0c77600dc7de905177f2295c030a937c" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Abergavenny <span class="pill">Low</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>26.9</b></div>         <div>Rank</div><div><b>37</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Med</div>         <div>Travel to work</div><div>Med</div>         <div>Road traffic</div><div>Med</div>         <div>Population Density</div><div>Med</div>         <div>Competition</div><div>Med</div>       </div>     </div>     </div>`)[0];
+                popup_16145afff5213b256aa4ddeceef1353f.setContent(html_0c77600dc7de905177f2295c030a937c);
+            
+        
+
+        circle_marker_9f794c721cbc18139760abf23645264d.bindPopup(popup_16145afff5213b256aa4ddeceef1353f)
+        ;
+
+        
+    
+    
+            var circle_marker_1020273541fc5850d7ccca640cd7421d = L.circleMarker(
+                [52.41399488, -4.081730862],
+                {"bubblingMouseEvents": true, "color": "#d1495b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1495b", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.097263077968096, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_f6aedcb8955bf0c9e2cd27f676bcd223 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_9cc309677a7cae8f6c1a71ed5a77f226 = $(`<div id="html_9cc309677a7cae8f6c1a71ed5a77f226" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Aberystwyth <span class="pill">Low</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>11.4</b></div>         <div>Rank</div><div><b>45</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Low</div>         <div>Travel to work</div><div>Med</div>         <div>Road traffic</div><div>Med</div>         <div>Population Density</div><div>Med</div>         <div>Competition</div><div>High</div>       </div>     </div>     </div>`)[0];
+                popup_f6aedcb8955bf0c9e2cd27f676bcd223.setContent(html_9cc309677a7cae8f6c1a71ed5a77f226);
+            
+        
+
+        circle_marker_1020273541fc5850d7ccca640cd7421d.bindPopup(popup_f6aedcb8955bf0c9e2cd27f676bcd223)
+        ;
+
+        
+    
+    
+            var circle_marker_4bf150c2a4defc8273694a9dfa18bae7 = L.circleMarker(
+                [53.22302065, -4.135645444],
+                {"bubblingMouseEvents": true, "color": "#d1495b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1495b", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.448779297495411, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_3c4cdc68166e53b8d50bb13682c62e7e = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_6d72139cfc8e8f2a914e3476a90c3224 = $(`<div id="html_6d72139cfc8e8f2a914e3476a90c3224" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Bangor (Gwynedd) <span class="pill">Low</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>21.4</b></div>         <div>Rank</div><div><b>42</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Low</div>         <div>Travel to work</div><div>Med</div>         <div>Road traffic</div><div>High</div>         <div>Population Density</div><div>Med</div>         <div>Competition</div><div>Med</div>       </div>     </div>     </div>`)[0];
+                popup_3c4cdc68166e53b8d50bb13682c62e7e.setContent(html_6d72139cfc8e8f2a914e3476a90c3224);
+            
+        
+
+        circle_marker_4bf150c2a4defc8273694a9dfa18bae7.bindPopup(popup_3c4cdc68166e53b8d50bb13682c62e7e)
+        ;
+
+        
+    
+    
+            var circle_marker_77b75f9160cfaf98688d6ba9d43f528d = L.circleMarker(
+                [51.40057106, -3.280856178],
+                {"bubblingMouseEvents": true, "color": "#1f9e89", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f9e89", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.058276511728195, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_43d324a8de2dace51759b77293e719bf = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_b9997c41037549afe989e581a6b9ce9a = $(`<div id="html_b9997c41037549afe989e581a6b9ce9a" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Barry <span class="pill">High</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>40.7</b></div>         <div>Rank</div><div><b>16</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>High</div>         <div>Travel to work</div><div>High</div>         <div>Road traffic</div><div>Med</div>         <div>Population Density</div><div>High</div>         <div>Competition</div><div>High</div>       </div>     </div>     </div>`)[0];
+                popup_43d324a8de2dace51759b77293e719bf.setContent(html_b9997c41037549afe989e581a6b9ce9a);
+            
+        
+
+        circle_marker_77b75f9160cfaf98688d6ba9d43f528d.bindPopup(popup_43d324a8de2dace51759b77293e719bf)
+        ;
+
+        
+    
+    
+            var circle_marker_22cc903a32b0db2412379692d3f042ac = L.circleMarker(
+                [52.43877642, -4.030994468],
+                {"bubblingMouseEvents": true, "color": "#d1495b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1495b", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.23095067028103, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_61eea3930d930f2b73b1be55969ca357 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_661a58c207862b0c3a3c230b9fcf114c = $(`<div id="html_661a58c207862b0c3a3c230b9fcf114c" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Bow Street <span class="pill">Low</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>27.2</b></div>         <div>Rank</div><div><b>36</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Low</div>         <div>Travel to work</div><div>Low</div>         <div>Road traffic</div><div>Low</div>         <div>Population Density</div><div>Low</div>         <div>Competition</div><div>Low</div>       </div>     </div>     </div>`)[0];
+                popup_61eea3930d930f2b73b1be55969ca357.setContent(html_661a58c207862b0c3a3c230b9fcf114c);
+            
+        
+
+        circle_marker_22cc903a32b0db2412379692d3f042ac.bindPopup(popup_61eea3930d930f2b73b1be55969ca357)
+        ;
+
+        
+    
+    
+            var circle_marker_2d04dbc7439016fbc6e6877c968aa3ba = L.circleMarker(
+                [51.50750123, -3.576198713],
+                {"bubblingMouseEvents": true, "color": "#1f9e89", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f9e89", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.25348045918249, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_202a0704200e10a0368dab58d7df057f = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_14192cb4fa70f1b6f2fbd8831fd82a63 = $(`<div id="html_14192cb4fa70f1b6f2fbd8831fd82a63" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Bridgend <span class="pill">High</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>42.1</b></div>         <div>Rank</div><div><b>13</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>High</div>         <div>Travel to work</div><div>High</div>         <div>Road traffic</div><div>High</div>         <div>Population Density</div><div>High</div>         <div>Competition</div><div>High</div>       </div>     </div>     </div>`)[0];
+                popup_202a0704200e10a0368dab58d7df057f.setContent(html_14192cb4fa70f1b6f2fbd8831fd82a63);
+            
+        
+
+        circle_marker_2d04dbc7439016fbc6e6877c968aa3ba.bindPopup(popup_202a0704200e10a0368dab58d7df057f)
+        ;
+
+        
+    
+    
+            var circle_marker_ff9f7c1a450151652520135e176b3d01 = L.circleMarker(
+                [53.162684, -3.053690564],
+                {"bubblingMouseEvents": true, "color": "#1f9e89", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f9e89", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.523241469900583, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_f8126c8b359d6a7dbe27c7ca2ae915ae = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_6ea0f4865151424dd398b9ef3a0fb9d4 = $(`<div id="html_6ea0f4865151424dd398b9ef3a0fb9d4" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Buckley <span class="pill">High</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>44.1</b></div>         <div>Rank</div><div><b>11</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>High</div>         <div>Travel to work</div><div>High</div>         <div>Road traffic</div><div>High</div>         <div>Population Density</div><div>High</div>         <div>Competition</div><div>Low</div>       </div>     </div>     </div>`)[0];
+                popup_f8126c8b359d6a7dbe27c7ca2ae915ae.setContent(html_6ea0f4865151424dd398b9ef3a0fb9d4);
+            
+        
+
+        circle_marker_ff9f7c1a450151652520135e176b3d01.bindPopup(popup_f8126c8b359d6a7dbe27c7ca2ae915ae)
+        ;
+
+        
+    
+    
+            var circle_marker_79f0cffa0f9643dac218abf4f6ecdfe8 = L.circleMarker(
+                [51.41272919, -3.248573908],
+                {"bubblingMouseEvents": true, "color": "#1f9e89", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f9e89", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.06098767766506, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_2dc42ce91a6dbdac4befefb9d2a5d795 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_099c6acc51704ef00e1aeed93bba0e08 = $(`<div id="html_099c6acc51704ef00e1aeed93bba0e08" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Cadoxton <span class="pill">High</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>40.7</b></div>         <div>Rank</div><div><b>15</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>High</div>         <div>Travel to work</div><div>High</div>         <div>Road traffic</div><div>Low</div>         <div>Population Density</div><div>High</div>         <div>Competition</div><div>Med</div>       </div>     </div>     </div>`)[0];
+                popup_2dc42ce91a6dbdac4befefb9d2a5d795.setContent(html_099c6acc51704ef00e1aeed93bba0e08);
+            
+        
+
+        circle_marker_79f0cffa0f9643dac218abf4f6ecdfe8.bindPopup(popup_2dc42ce91a6dbdac4befefb9d2a5d795)
+        ;
+
+        
+    
+    
+            var circle_marker_7e79e912e20f1b03b1d3745ee4bad9ab = L.circleMarker(
+                [52.51612131, -3.432497958],
+                {"bubblingMouseEvents": true, "color": "#d1495b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1495b", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.967967574405103, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_c896af414104dc25c72a0427373c8dc0 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_95da09298cae83b316192d5e4b7f4ba4 = $(`<div id="html_95da09298cae83b316192d5e4b7f4ba4" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Caersws <span class="pill">Low</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>25.2</b></div>         <div>Rank</div><div><b>39</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Low</div>         <div>Travel to work</div><div>Low</div>         <div>Road traffic</div><div>Low</div>         <div>Population Density</div><div>Low</div>         <div>Competition</div><div>Low</div>       </div>     </div>     </div>`)[0];
+                popup_c896af414104dc25c72a0427373c8dc0.setContent(html_95da09298cae83b316192d5e4b7f4ba4);
+            
+        
+
+        circle_marker_7e79e912e20f1b03b1d3745ee4bad9ab.bindPopup(popup_c896af414104dc25c72a0427373c8dc0)
+        ;
+
+        
+    
+    
+            var circle_marker_490a69cafb4ae6b38de890327f47548b = L.circleMarker(
+                [51.85352838, -4.305726574],
+                {"bubblingMouseEvents": true, "color": "#f6c945", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f6c945", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.072767693677683, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_ba6d8998d021b8d4341e2f20379a43fb = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_f2ae3d6f23c02b7409f531269cce745b = $(`<div id="html_f2ae3d6f23c02b7409f531269cce745b" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Carmarthen <span class="pill">Med</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>33.4</b></div>         <div>Rank</div><div><b>25</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Low</div>         <div>Travel to work</div><div>Med</div>         <div>Road traffic</div><div>High</div>         <div>Population Density</div><div>Med</div>         <div>Competition</div><div>Med</div>       </div>     </div>     </div>`)[0];
+                popup_ba6d8998d021b8d4341e2f20379a43fb.setContent(html_f2ae3d6f23c02b7409f531269cce745b);
+            
+        
+
+        circle_marker_490a69cafb4ae6b38de890327f47548b.bindPopup(popup_ba6d8998d021b8d4341e2f20379a43fb)
+        ;
+
+        
+    
+    
+            var circle_marker_7084441f75bd9fa2fd98454d86bcfc5b = L.circleMarker(
+                [53.19420982, -2.88133321],
+                {"bubblingMouseEvents": true, "color": "#1f9e89", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f9e89", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.071317219850627, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_c0cf413e8607d10a3a736fe32dc1181d = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_b5e21867cfde1d7d51fd33565c075059 = $(`<div id="html_b5e21867cfde1d7d51fd33565c075059" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Chester <span class="pill">High</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>55.5</b></div>         <div>Rank</div><div><b>5</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>High</div>         <div>Travel to work</div><div>High</div>         <div>Road traffic</div><div>High</div>         <div>Population Density</div><div>High</div>         <div>Competition</div><div>High</div>       </div>     </div>     </div>`)[0];
+                popup_c0cf413e8607d10a3a736fe32dc1181d.setContent(html_b5e21867cfde1d7d51fd33565c075059);
+            
+        
+
+        circle_marker_7084441f75bd9fa2fd98454d86bcfc5b.bindPopup(popup_c0cf413e8607d10a3a736fe32dc1181d)
+        ;
+
+        
+    
+    
+            var circle_marker_c1ce64a0fec431a57d0065ac351801d4 = L.circleMarker(
+                [52.93260383, -3.061107367],
+                {"bubblingMouseEvents": true, "color": "#f6c945", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f6c945", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.606447152536864, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_ef71f42409e3043370d28dbc5c73345b = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_0d01bd4a9403f2c645fa06404862486a = $(`<div id="html_0d01bd4a9403f2c645fa06404862486a" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Chirk <span class="pill">Med</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>29.9</b></div>         <div>Rank</div><div><b>32</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Med</div>         <div>Travel to work</div><div>Low</div>         <div>Road traffic</div><div>Low</div>         <div>Population Density</div><div>Low</div>         <div>Competition</div><div>Low</div>       </div>     </div>     </div>`)[0];
+                popup_ef71f42409e3043370d28dbc5c73345b.setContent(html_0d01bd4a9403f2c645fa06404862486a);
+            
+        
+
+        circle_marker_c1ce64a0fec431a57d0065ac351801d4.bindPopup(popup_ef71f42409e3043370d28dbc5c73345b)
+        ;
+
+        
+    
+    
+            var circle_marker_bb98eb2eaba95bf1c11e4ae03f9ef999 = L.circleMarker(
+                [52.53722343, -2.803602268],
+                {"bubblingMouseEvents": true, "color": "#d1495b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1495b", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.956282449251104, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_bd2f8be8cd99e791b1ade13e4744aea2 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_6c950cc9a7e45779245ef621d1a11cb3 = $(`<div id="html_6c950cc9a7e45779245ef621d1a11cb3" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Church Stretton <span class="pill">Low</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>10.4</b></div>         <div>Rank</div><div><b>48</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Med</div>         <div>Travel to work</div><div>Low</div>         <div>Road traffic</div><div>Low</div>         <div>Population Density</div><div>Low</div>         <div>Competition</div><div>High</div>       </div>     </div>     </div>`)[0];
+                popup_bd2f8be8cd99e791b1ade13e4744aea2.setContent(html_6c950cc9a7e45779245ef621d1a11cb3);
+            
+        
+
+        circle_marker_bb98eb2eaba95bf1c11e4ae03f9ef999.bindPopup(popup_bd2f8be8cd99e791b1ade13e4744aea2)
+        ;
+
+        
+    
+    
+            var circle_marker_14578a706e822461417d4d70d0a88db3 = L.circleMarker(
+                [51.64102089, -2.672434854],
+                {"bubblingMouseEvents": true, "color": "#d1495b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1495b", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.095907494999663, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_a7c48bae04526e5f17d8d5cc1fd06eae = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_63dbf5219acc15d486ff61cb5952cb28 = $(`<div id="html_63dbf5219acc15d486ff61cb5952cb28" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Chepstow <span class="pill">Low</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>11.4</b></div>         <div>Rank</div><div><b>46</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Med</div>         <div>Travel to work</div><div>Med</div>         <div>Road traffic</div><div>Med</div>         <div>Population Density</div><div>Med</div>         <div>Competition</div><div>High</div>       </div>     </div>     </div>`)[0];
+                popup_a7c48bae04526e5f17d8d5cc1fd06eae.setContent(html_63dbf5219acc15d486ff61cb5952cb28);
+            
+        
+
+        circle_marker_14578a706e822461417d4d70d0a88db3.bindPopup(popup_a7c48bae04526e5f17d8d5cc1fd06eae)
+        ;
+
+        
+    
+    
+            var circle_marker_49c7e62e1a81124a93c0990ed8c8aa93 = L.circleMarker(
+                [51.44608872, -3.18894883],
+                {"bubblingMouseEvents": true, "color": "#1f9e89", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f9e89", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.999999999864443, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_b4ebd39041e719f4718045000f308a69 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_bfe5912d01a28b3417326b55de1c9a31 = $(`<div id="html_bfe5912d01a28b3417326b55de1c9a31" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Cogan <span class="pill">High</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>80.8</b></div>         <div>Rank</div><div><b>1</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>High</div>         <div>Travel to work</div><div>High</div>         <div>Road traffic</div><div>High</div>         <div>Population Density</div><div>High</div>         <div>Competition</div><div>Low</div>       </div>     </div>     </div>`)[0];
+                popup_b4ebd39041e719f4718045000f308a69.setContent(html_bfe5912d01a28b3417326b55de1c9a31);
+            
+        
+
+        circle_marker_49c7e62e1a81124a93c0990ed8c8aa93.bindPopup(popup_b4ebd39041e719f4718045000f308a69)
+        ;
+
+        
+    
+    
+            var circle_marker_833fadb86770faf3fb4708ac1282819b = L.circleMarker(
+                [53.29806485, -3.731023099],
+                {"bubblingMouseEvents": true, "color": "#f6c945", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f6c945", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.782672938433105, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_291922e51800e08d1be1ed18b209b956 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_3d47e5bd33c548cc49b41662eaed7871 = $(`<div id="html_3d47e5bd33c548cc49b41662eaed7871" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Colwyn Bay <span class="pill">Med</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>31.2</b></div>         <div>Rank</div><div><b>28</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Low</div>         <div>Travel to work</div><div>High</div>         <div>Road traffic</div><div>Med</div>         <div>Population Density</div><div>High</div>         <div>Competition</div><div>Med</div>       </div>     </div>     </div>`)[0];
+                popup_291922e51800e08d1be1ed18b209b956.setContent(html_3d47e5bd33c548cc49b41662eaed7871);
+            
+        
+
+        circle_marker_833fadb86770faf3fb4708ac1282819b.bindPopup(popup_291922e51800e08d1be1ed18b209b956)
+        ;
+
+        
+    
+    
+            var circle_marker_a94168fe523b8badcdf52064449e4aba = L.circleMarker(
+                [52.44235909, -2.837406994],
+                {"bubblingMouseEvents": true, "color": "#f6c945", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f6c945", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.243150916996925, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_5b7e168c0cdf967c326b693abab3280c = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_9b329803a8b54a2bd5e0d2dd4e805db4 = $(`<div id="html_9b329803a8b54a2bd5e0d2dd4e805db4" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Craven Arms <span class="pill">Med</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>27.3</b></div>         <div>Rank</div><div><b>35</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Med</div>         <div>Travel to work</div><div>Low</div>         <div>Road traffic</div><div>Low</div>         <div>Population Density</div><div>Low</div>         <div>Competition</div><div>Low</div>       </div>     </div>     </div>`)[0];
+                popup_5b7e168c0cdf967c326b693abab3280c.setContent(html_9b329803a8b54a2bd5e0d2dd4e805db4);
+            
+        
+
+        circle_marker_a94168fe523b8badcdf52064449e4aba.bindPopup(popup_5b7e168c0cdf967c326b693abab3280c)
+        ;
+
+        
+    
+    
+            var circle_marker_6414bea3230fb19a66e48d9c3c7029ce = L.circleMarker(
+                [51.65931227, -3.017141811],
+                {"bubblingMouseEvents": true, "color": "#f6c945", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f6c945", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.74878336422229, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_ac4f7d3b59ae165a2de2955c309aa968 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_c9734869100fac55da864bb0edf69ec6 = $(`<div id="html_c9734869100fac55da864bb0edf69ec6" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Cwmbran <span class="pill">Med</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>31.0</b></div>         <div>Rank</div><div><b>30</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>High</div>         <div>Travel to work</div><div>High</div>         <div>Road traffic</div><div>Med</div>         <div>Population Density</div><div>High</div>         <div>Competition</div><div>High</div>       </div>     </div>     </div>`)[0];
+                popup_ac4f7d3b59ae165a2de2955c309aa968.setContent(html_c9734869100fac55da864bb0edf69ec6);
+            
+        
+
+        circle_marker_6414bea3230fb19a66e48d9c3c7029ce.bindPopup(popup_ac4f7d3b59ae165a2de2955c309aa968)
+        ;
+
+        
+    
+    
+            var circle_marker_c577d7f22a97c4319bea4c4d942615e7 = L.circleMarker(
+                [51.42978823, -3.219900691],
+                {"bubblingMouseEvents": true, "color": "#1f9e89", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f9e89", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.84993696529284, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_d643fb4d3a7bfd6de3778b1169f3c5e6 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_e5ae4fb25d4d3b523fe4c1a9522fdc97 = $(`<div id="html_e5ae4fb25d4d3b523fe4c1a9522fdc97" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Eastbrook <span class="pill">High</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>46.5</b></div>         <div>Rank</div><div><b>8</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>High</div>         <div>Travel to work</div><div>High</div>         <div>Road traffic</div><div>Med</div>         <div>Population Density</div><div>High</div>         <div>Competition</div><div>Low</div>       </div>     </div>     </div>`)[0];
+                popup_d643fb4d3a7bfd6de3778b1169f3c5e6.setContent(html_e5ae4fb25d4d3b523fe4c1a9522fdc97);
+            
+        
+
+        circle_marker_c577d7f22a97c4319bea4c4d942615e7.bindPopup(popup_d643fb4d3a7bfd6de3778b1169f3c5e6)
+        ;
+
+        
+    
+    
+            var circle_marker_695349fefbd574f9c8a2c10d414f10f3 = L.circleMarker(
+                [53.29438153, -2.723700001],
+                {"bubblingMouseEvents": true, "color": "#1f9e89", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f9e89", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.524597052869014, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_83803edd324b71d6aee8750cdafc7c33 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_15efafceb1f9972040c715c34c6f0f29 = $(`<div id="html_15efafceb1f9972040c715c34c6f0f29" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Frodsham <span class="pill">High</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>44.1</b></div>         <div>Rank</div><div><b>10</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>High</div>         <div>Travel to work</div><div>Med</div>         <div>Road traffic</div><div>High</div>         <div>Population Density</div><div>Med</div>         <div>Competition</div><div>Low</div>       </div>     </div>     </div>`)[0];
+                popup_83803edd324b71d6aee8750cdafc7c33.setContent(html_15efafceb1f9972040c715c34c6f0f29);
+            
+        
+
+        circle_marker_695349fefbd574f9c8a2c10d414f10f3.bindPopup(popup_83803edd324b71d6aee8750cdafc7c33)
+        ;
+
+        
+    
+    
+            var circle_marker_d11c1a00a1d88bd4603dc82f68a601f6 = L.circleMarker(
+                [51.64867247, -4.035310785],
+                {"bubblingMouseEvents": true, "color": "#1f9e89", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f9e89", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.34023776916218, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_193cbc10225ef5744358742db4c5ff13 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_83d75bae7512f709248a5a1c4c781579 = $(`<div id="html_83d75bae7512f709248a5a1c4c781579" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Gowerton <span class="pill">High</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>42.7</b></div>         <div>Rank</div><div><b>12</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>High</div>         <div>Travel to work</div><div>High</div>         <div>Road traffic</div><div>Med</div>         <div>Population Density</div><div>High</div>         <div>Competition</div><div>Low</div>       </div>     </div>     </div>`)[0];
+                popup_193cbc10225ef5744358742db4c5ff13.setContent(html_83d75bae7512f709248a5a1c4c781579);
+            
+        
+
+        circle_marker_d11c1a00a1d88bd4603dc82f68a601f6.bindPopup(popup_193cbc10225ef5744358742db4c5ff13)
+        ;
+
+        
+    
+    
+            var circle_marker_f94879866124b602cda06c3ecbae1b46 = L.circleMarker(
+                [51.80285714, -4.960435599],
+                {"bubblingMouseEvents": true, "color": "#d1495b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1495b", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.424378804063625, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_2683223e532894b3a775f020def98ce3 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_fbeffebfe46254a1ca393a7786f39b3c = $(`<div id="html_fbeffebfe46254a1ca393a7786f39b3c" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Haverfordwest <span class="pill">Low</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>21.2</b></div>         <div>Rank</div><div><b>43</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Low</div>         <div>Travel to work</div><div>Med</div>         <div>Road traffic</div><div>High</div>         <div>Population Density</div><div>Med</div>         <div>Competition</div><div>High</div>       </div>     </div>     </div>`)[0];
+                popup_2683223e532894b3a775f020def98ce3.setContent(html_fbeffebfe46254a1ca393a7786f39b3c);
+            
+        
+
+        circle_marker_f94879866124b602cda06c3ecbae1b46.bindPopup(popup_2683223e532894b3a775f020def98ce3)
+        ;
+
+        
+    
+    
+            var circle_marker_c8469734b8b302a626b30f33723c056d = L.circleMarker(
+                [53.27522466, -2.771225123],
+                {"bubblingMouseEvents": true, "color": "#f6c945", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f6c945", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.414374601722702, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_b552b84df1cbbc641cfa90632bed8cc5 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_dfafef2dc4fe7c7d6a718cc90bed2170 = $(`<div id="html_dfafef2dc4fe7c7d6a718cc90bed2170" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Helsby <span class="pill">Med</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>35.9</b></div>         <div>Rank</div><div><b>23</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>High</div>         <div>Travel to work</div><div>Low</div>         <div>Road traffic</div><div>Low</div>         <div>Population Density</div><div>Low</div>         <div>Competition</div><div>Low</div>       </div>     </div>     </div>`)[0];
+                popup_b552b84df1cbbc641cfa90632bed8cc5.setContent(html_dfafef2dc4fe7c7d6a718cc90bed2170);
+            
+        
+
+        circle_marker_c8469734b8b302a626b30f33723c056d.bindPopup(popup_b552b84df1cbbc641cfa90632bed8cc5)
+        ;
+
+        
+    
+    
+            var circle_marker_8325289b2480181f3a9850d0c21baeb2 = L.circleMarker(
+                [52.06043656, -2.709208597],
+                {"bubblingMouseEvents": true, "color": "#1f9e89", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f9e89", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.04472068204387, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_be69a7f5b166b5d90347f9b43395e502 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_a0af49f0198cebb82b24d86e2ca1da90 = $(`<div id="html_a0af49f0198cebb82b24d86e2ca1da90" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Hereford <span class="pill">High</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>40.6</b></div>         <div>Rank</div><div><b>18</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Med</div>         <div>Travel to work</div><div>High</div>         <div>Road traffic</div><div>High</div>         <div>Population Density</div><div>High</div>         <div>Competition</div><div>High</div>       </div>     </div>     </div>`)[0];
+                popup_be69a7f5b166b5d90347f9b43395e502.setContent(html_a0af49f0198cebb82b24d86e2ca1da90);
+            
+        
+
+        circle_marker_8325289b2480181f3a9850d0c21baeb2.bindPopup(popup_be69a7f5b166b5d90347f9b43395e502)
+        ;
+
+        
+    
+    
+            var circle_marker_69cf33cf86760e34d5179855b86d9d1c = L.circleMarker(
+                [53.33554568, -3.049446375],
+                {"bubblingMouseEvents": true, "color": "#1f9e89", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f9e89", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.774864780467155, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_36ad58ea5cfeaa0feebcfaf22d68dd9e = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_006fc297d97a419f75869881c7f4c958 = $(`<div id="html_006fc297d97a419f75869881c7f4c958" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Heswall <span class="pill">High</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>60.7</b></div>         <div>Rank</div><div><b>4</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>High</div>         <div>Travel to work</div><div>Med</div>         <div>Road traffic</div><div>Med</div>         <div>Population Density</div><div>Med</div>         <div>Competition</div><div>Low</div>       </div>     </div>     </div>`)[0];
+                popup_36ad58ea5cfeaa0feebcfaf22d68dd9e.setContent(html_006fc297d97a419f75869881c7f4c958);
+            
+        
+
+        circle_marker_69cf33cf86760e34d5179855b86d9d1c.bindPopup(popup_36ad58ea5cfeaa0feebcfaf22d68dd9e)
+        ;
+
+        
+    
+    
+            var circle_marker_a65cd6d50a3a4f4a033e1838ca5f9d5d = L.circleMarker(
+                [53.28421086, -3.809058371],
+                {"bubblingMouseEvents": true, "color": "#d1495b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1495b", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.741585218676857, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_d609858141c03a48c697a166a1a32f1c = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_c55a1d51d767b463c7e626f9a1e3b2d6 = $(`<div id="html_c55a1d51d767b463c7e626f9a1e3b2d6" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Llandudno Junction <span class="pill">Low</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>23.6</b></div>         <div>Rank</div><div><b>41</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Med</div>         <div>Travel to work</div><div>Med</div>         <div>Road traffic</div><div>High</div>         <div>Population Density</div><div>Med</div>         <div>Competition</div><div>High</div>       </div>     </div>     </div>`)[0];
+                popup_d609858141c03a48c697a166a1a32f1c.setContent(html_c55a1d51d767b463c7e626f9a1e3b2d6);
+            
+        
+
+        circle_marker_a65cd6d50a3a4f4a033e1838ca5f9d5d.bindPopup(popup_d609858141c03a48c697a166a1a32f1c)
+        ;
+
+        
+    
+    
+            var circle_marker_c2775388f875762aa4ca809ddaee8f6f = L.circleMarker(
+                [51.99526662, -3.802814071],
+                {"bubblingMouseEvents": true, "color": "#d1495b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1495b", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.0, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_89eac57e7fb1713bb7a3252e76f2f511 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_0befdfd5f3f4bd5dcb3c34f953f4437c = $(`<div id="html_0befdfd5f3f4bd5dcb3c34f953f4437c" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Llandovery <span class="pill">Low</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>1.5</b></div>         <div>Rank</div><div><b>53</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Low</div>         <div>Travel to work</div><div>Low</div>         <div>Road traffic</div><div>Low</div>         <div>Population Density</div><div>Low</div>         <div>Competition</div><div>High</div>       </div>     </div>     </div>`)[0];
+                popup_89eac57e7fb1713bb7a3252e76f2f511.setContent(html_0befdfd5f3f4bd5dcb3c34f953f4437c);
+            
+        
+
+        circle_marker_c2775388f875762aa4ca809ddaee8f6f.bindPopup(popup_89eac57e7fb1713bb7a3252e76f2f511)
+        ;
+
+        
+    
+    
+            var circle_marker_ac7ffdd59c0305544e351a9e38416938 = L.circleMarker(
+                [52.37067556, -2.715869693],
+                {"bubblingMouseEvents": true, "color": "#f6c945", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f6c945", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.689137713611254, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_818dc98a9032f5cfcd305ac734fd1cd8 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_55284abfe4e37947b91482ab09e67380 = $(`<div id="html_55284abfe4e37947b91482ab09e67380" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Ludlow <span class="pill">Med</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>30.6</b></div>         <div>Rank</div><div><b>31</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Med</div>         <div>Travel to work</div><div>Low</div>         <div>Road traffic</div><div>Low</div>         <div>Population Density</div><div>Low</div>         <div>Competition</div><div>Med</div>       </div>     </div>     </div>`)[0];
+                popup_818dc98a9032f5cfcd305ac734fd1cd8.setContent(html_55284abfe4e37947b91482ab09e67380);
+            
+        
+
+        circle_marker_ac7ffdd59c0305544e351a9e38416938.bindPopup(popup_818dc98a9032f5cfcd305ac734fd1cd8)
+        ;
+
+        
+    
+    
+            var circle_marker_55466aaffca63ce5155c15b6dc91d6f9 = L.circleMarker(
+                [51.71403828, -2.530881967],
+                {"bubblingMouseEvents": true, "color": "#f6c945", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f6c945", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.907386571528905, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_c60f6dc7ef2bcce658fdae47172619d2 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_0ff5bd1f5ffb88f19909859e64aa30c2 = $(`<div id="html_0ff5bd1f5ffb88f19909859e64aa30c2" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Lydney <span class="pill">Med</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>32.2</b></div>         <div>Rank</div><div><b>26</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Med</div>         <div>Travel to work</div><div>Med</div>         <div>Road traffic</div><div>Low</div>         <div>Population Density</div><div>Med</div>         <div>Competition</div><div>Low</div>       </div>     </div>     </div>`)[0];
+                popup_c60f6dc7ef2bcce658fdae47172619d2.setContent(html_0ff5bd1f5ffb88f19909859e64aa30c2);
+            
+        
+
+        circle_marker_55466aaffca63ce5155c15b6dc91d6f9.bindPopup(popup_c60f6dc7ef2bcce658fdae47172619d2)
+        ;
+
+        
+    
+    
+            var circle_marker_01a18416cf659a9bb60f9acc7d15a111 = L.circleMarker(
+                [52.59354374, -3.854814086],
+                {"bubblingMouseEvents": true, "color": "#d1495b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1495b", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.831568816155303, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_98a2e31239c414be44f17d218cbd4271 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_0d81adfcdeb9cf6b6d912e50c180d50e = $(`<div id="html_0d81adfcdeb9cf6b6d912e50c180d50e" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Machynlleth <span class="pill">Low</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>9.5</b></div>         <div>Rank</div><div><b>49</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Low</div>         <div>Travel to work</div><div>Low</div>         <div>Road traffic</div><div>Low</div>         <div>Population Density</div><div>Low</div>         <div>Competition</div><div>High</div>       </div>     </div>     </div>`)[0];
+                popup_98a2e31239c414be44f17d218cbd4271.setContent(html_0d81adfcdeb9cf6b6d912e50c180d50e);
+            
+        
+
+        circle_marker_01a18416cf659a9bb60f9acc7d15a111.bindPopup(popup_98a2e31239c414be44f17d218cbd4271)
+        ;
+
+        
+    
+    
+            var circle_marker_ee9528e645481d46f20f32f815b7ce0f = L.circleMarker(
+                [51.66220915, -3.806936923],
+                {"bubblingMouseEvents": true, "color": "#1f9e89", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f9e89", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.805202727334565, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_ffa1044828fb527c7f1b5acad57d49bc = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_ad04fe097aab84b6c618b9798e4bbe4c = $(`<div id="html_ad04fe097aab84b6c618b9798e4bbe4c" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Neath <span class="pill">High</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>46.2</b></div>         <div>Rank</div><div><b>9</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Med</div>         <div>Travel to work</div><div>High</div>         <div>Road traffic</div><div>High</div>         <div>Population Density</div><div>High</div>         <div>Competition</div><div>Med</div>       </div>     </div>     </div>`)[0];
+                popup_ffa1044828fb527c7f1b5acad57d49bc.setContent(html_ad04fe097aab84b6c618b9798e4bbe4c);
+            
+        
+
+        circle_marker_ee9528e645481d46f20f32f815b7ce0f.bindPopup(popup_ffa1044828fb527c7f1b5acad57d49bc)
+        ;
+
+        
+    
+    
+            var circle_marker_be14798a2b622d34d45057462c15c87f = L.circleMarker(
+                [53.291606, -3.063745382],
+                {"bubblingMouseEvents": true, "color": "#1f9e89", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f9e89", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.243991378403464, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_692c794854b753fd92cdbaf2fad3f790 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_9ed89f484e1ddd36501c637d45789d9a = $(`<div id="html_9ed89f484e1ddd36501c637d45789d9a" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Neston <span class="pill">High</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>42.0</b></div>         <div>Rank</div><div><b>14</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>High</div>         <div>Travel to work</div><div>Med</div>         <div>Road traffic</div><div>Low</div>         <div>Population Density</div><div>Med</div>         <div>Competition</div><div>Med</div>       </div>     </div>     </div>`)[0];
+                popup_692c794854b753fd92cdbaf2fad3f790.setContent(html_9ed89f484e1ddd36501c637d45789d9a);
+            
+        
+
+        circle_marker_be14798a2b622d34d45057462c15c87f.bindPopup(popup_692c794854b753fd92cdbaf2fad3f790)
+        ;
+
+        
+    
+    
+            var circle_marker_68feb062822ae47c9cc2a3d98f4ac67f = L.circleMarker(
+                [51.58870021, -3.001135979],
+                {"bubblingMouseEvents": true, "color": "#1f9e89", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f9e89", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.999999999864443, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_7b864304ff9c0447a04afa9e2958487b = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_9f55d3beda08e54dce3f69d272d44eeb = $(`<div id="html_9f55d3beda08e54dce3f69d272d44eeb" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Newport (Gwent) <span class="pill">High</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>62.4</b></div>         <div>Rank</div><div><b>2</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>High</div>         <div>Travel to work</div><div>High</div>         <div>Road traffic</div><div>High</div>         <div>Population Density</div><div>High</div>         <div>Competition</div><div>High</div>       </div>     </div>     </div>`)[0];
+                popup_7b864304ff9c0447a04afa9e2958487b.setContent(html_9f55d3beda08e54dce3f69d272d44eeb);
+            
+        
+
+        circle_marker_68feb062822ae47c9cc2a3d98f4ac67f.bindPopup(popup_7b864304ff9c0447a04afa9e2958487b)
+        ;
+
+        
+    
+    
+            var circle_marker_3c9b4d1e867491fc71101bfd4e05e398 = L.circleMarker(
+                [51.68414374, -4.248711841],
+                {"bubblingMouseEvents": true, "color": "#d1495b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1495b", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.109463324683989, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_85ad5c278b539688e4ad28602adb3037 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_b909c449e1714ff4879410d231ccf4c7 = $(`<div id="html_b909c449e1714ff4879410d231ccf4c7" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Pembrey and Burry Port <span class="pill">Low</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>11.5</b></div>         <div>Rank</div><div><b>44</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Low</div>         <div>Travel to work</div><div>Low</div>         <div>Road traffic</div><div>Low</div>         <div>Population Density</div><div>Low</div>         <div>Competition</div><div>Med</div>       </div>     </div>     </div>`)[0];
+                popup_85ad5c278b539688e4ad28602adb3037.setContent(html_b909c449e1714ff4879410d231ccf4c7);
+            
+        
+
+        circle_marker_3c9b4d1e867491fc71101bfd4e05e398.bindPopup(popup_85ad5c278b539688e4ad28602adb3037)
+        ;
+
+        
+    
+    
+            var circle_marker_41e73946e71e58a7bdc124aa684b0af1 = L.circleMarker(
+                [51.67383466, -4.907024566],
+                {"bubblingMouseEvents": true, "color": "#f6c945", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f6c945", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.84774092091787, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_88bf2b5b292069d1ef19bdacd8cf7332 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_7350d7d5c473ab3774f6536940b18207 = $(`<div id="html_7350d7d5c473ab3774f6536940b18207" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Pembroke <span class="pill">Med</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>31.7</b></div>         <div>Rank</div><div><b>27</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Low</div>         <div>Travel to work</div><div>Low</div>         <div>Road traffic</div><div>Med</div>         <div>Population Density</div><div>Low</div>         <div>Competition</div><div>Med</div>       </div>     </div>     </div>`)[0];
+                popup_88bf2b5b292069d1ef19bdacd8cf7332.setContent(html_7350d7d5c473ab3774f6536940b18207);
+            
+        
+
+        circle_marker_41e73946e71e58a7bdc124aa684b0af1.bindPopup(popup_88bf2b5b292069d1ef19bdacd8cf7332)
+        ;
+
+        
+    
+    
+            var circle_marker_a2ca3cb8be55ff4b54fc8c9576545a57 = L.circleMarker(
+                [51.69368657, -4.940530927],
+                {"bubblingMouseEvents": true, "color": "#d1495b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1495b", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.005083436114678, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_e40ab12b171a61ca8b66f8847e99adf9 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_a181d3e5740a303b21da735f91f4db03 = $(`<div id="html_a181d3e5740a303b21da735f91f4db03" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Pembroke Dock <span class="pill">Low</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>10.8</b></div>         <div>Rank</div><div><b>47</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Low</div>         <div>Travel to work</div><div>Med</div>         <div>Road traffic</div><div>Med</div>         <div>Population Density</div><div>Med</div>         <div>Competition</div><div>High</div>       </div>     </div>     </div>`)[0];
+                popup_e40ab12b171a61ca8b66f8847e99adf9.setContent(html_a181d3e5740a303b21da735f91f4db03);
+            
+        
+
+        circle_marker_a2ca3cb8be55ff4b54fc8c9576545a57.bindPopup(popup_e40ab12b171a61ca8b66f8847e99adf9)
+        ;
+
+        
+    
+    
+            var circle_marker_f70712f408c770730eca30d548a5b97b = L.circleMarker(
+                [53.14820802, -3.044675468],
+                {"bubblingMouseEvents": true, "color": "#f6c945", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f6c945", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.62584554479819, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_a28ce356a03e96310c6c649e27c2ab7d = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_1ed34dea927f0bcb99e919db26584719 = $(`<div id="html_1ed34dea927f0bcb99e919db26584719" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Penyffordd <span class="pill">Med</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>37.5</b></div>         <div>Rank</div><div><b>21</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>High</div>         <div>Travel to work</div><div>Med</div>         <div>Road traffic</div><div>Med</div>         <div>Population Density</div><div>Med</div>         <div>Competition</div><div>Low</div>       </div>     </div>     </div>`)[0];
+                popup_a28ce356a03e96310c6c649e27c2ab7d.setContent(html_1ed34dea927f0bcb99e919db26584719);
+            
+        
+
+        circle_marker_f70712f408c770730eca30d548a5b97b.bindPopup(popup_a28ce356a03e96310c6c649e27c2ab7d)
+        ;
+
+        
+    
+    
+            var circle_marker_38dde12782fc812467c13fd634974dcc = L.circleMarker(
+                [51.43586926, -3.180690751],
+                {"bubblingMouseEvents": true, "color": "#1f9e89", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f9e89", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.905000745436684, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_111c2275fa48b3030e87ec5baaa88bdb = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_1752bc6e7caef285f2702a0812c04d3b = $(`<div id="html_1752bc6e7caef285f2702a0812c04d3b" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Penarth <span class="pill">High</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>61.7</b></div>         <div>Rank</div><div><b>3</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>High</div>         <div>Travel to work</div><div>High</div>         <div>Road traffic</div><div>High</div>         <div>Population Density</div><div>High</div>         <div>Competition</div><div>Med</div>       </div>     </div>     </div>`)[0];
+                popup_111c2275fa48b3030e87ec5baaa88bdb.setContent(html_1752bc6e7caef285f2702a0812c04d3b);
+            
+        
+
+        circle_marker_38dde12782fc812467c13fd634974dcc.bindPopup(popup_111c2275fa48b3030e87ec5baaa88bdb)
+        ;
+
+        
+    
+    
+            var circle_marker_5097c1d4bbfa03bb597d353d5dcbc3f1 = L.circleMarker(
+                [52.92177264, -4.102130357],
+                {"bubblingMouseEvents": true, "color": "#f6c945", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f6c945", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.285173989018334, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_129fbd36f91079a665b747a9703d5ee8 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_84f381c4ad938f034809846c3010bc17 = $(`<div id="html_84f381c4ad938f034809846c3010bc17" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Porthmadog <span class="pill">Med</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>27.6</b></div>         <div>Rank</div><div><b>34</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Low</div>         <div>Travel to work</div><div>Low</div>         <div>Road traffic</div><div>Med</div>         <div>Population Density</div><div>Low</div>         <div>Competition</div><div>Med</div>       </div>     </div>     </div>`)[0];
+                popup_129fbd36f91079a665b747a9703d5ee8.setContent(html_84f381c4ad938f034809846c3010bc17);
+            
+        
+
+        circle_marker_5097c1d4bbfa03bb597d353d5dcbc3f1.bindPopup(popup_129fbd36f91079a665b747a9703d5ee8)
+        ;
+
+        
+    
+    
+            var circle_marker_628bee00d0e051aa561da5b3f208ab9e = L.circleMarker(
+                [51.52424383, -3.392344146],
+                {"bubblingMouseEvents": true, "color": "#f6c945", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f6c945", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.032520435327974, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_a8474dded537d80d9b45ea55271117fd = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_afe697fe9cf93133526d8904d8b9c408 = $(`<div id="html_afe697fe9cf93133526d8904d8b9c408" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Pontyclun <span class="pill">Med</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>40.5</b></div>         <div>Rank</div><div><b>19</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>High</div>         <div>Travel to work</div><div>Med</div>         <div>Road traffic</div><div>High</div>         <div>Population Density</div><div>Med</div>         <div>Competition</div><div>Med</div>       </div>     </div>     </div>`)[0];
+                popup_a8474dded537d80d9b45ea55271117fd.setContent(html_afe697fe9cf93133526d8904d8b9c408);
+            
+        
+
+        circle_marker_628bee00d0e051aa561da5b3f208ab9e.bindPopup(popup_a8474dded537d80d9b45ea55271117fd)
+        ;
+
+        
+    
+    
+            var circle_marker_842dace4a248004137307c87fc52f1c9 = L.circleMarker(
+                [51.59242776, -3.781555827],
+                {"bubblingMouseEvents": true, "color": "#f6c945", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f6c945", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.520110073260447, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_843dcb2c76a8dbc33690f30b6a68356b = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_1cb6980be78c505c95d78e6a2d8eb91c = $(`<div id="html_1cb6980be78c505c95d78e6a2d8eb91c" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Port Talbot Parkway <span class="pill">Med</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>36.7</b></div>         <div>Rank</div><div><b>22</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Med</div>         <div>Travel to work</div><div>High</div>         <div>Road traffic</div><div>High</div>         <div>Population Density</div><div>High</div>         <div>Competition</div><div>Med</div>       </div>     </div>     </div>`)[0];
+                popup_843dcb2c76a8dbc33690f30b6a68356b.setContent(html_1cb6980be78c505c95d78e6a2d8eb91c);
+            
+        
+
+        circle_marker_842dace4a248004137307c87fc52f1c9.bindPopup(popup_843dcb2c76a8dbc33690f30b6a68356b)
+        ;
+
+        
+    
+    
+            var circle_marker_e51cbe6d2a881a4cf7966b8d532b0112 = L.circleMarker(
+                [51.52621776, -3.698133964],
+                {"bubblingMouseEvents": true, "color": "#1f9e89", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f9e89", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.05556534579133, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_6231a6579fab58979f26383cea8ad2b3 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_33c99b4e3f5f4ecaeb86a14f50443986 = $(`<div id="html_33c99b4e3f5f4ecaeb86a14f50443986" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Pyle <span class="pill">High</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>40.6</b></div>         <div>Rank</div><div><b>17</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>High</div>         <div>Travel to work</div><div>Med</div>         <div>Road traffic</div><div>Med</div>         <div>Population Density</div><div>Med</div>         <div>Competition</div><div>Low</div>       </div>     </div>     </div>`)[0];
+                popup_6231a6579fab58979f26383cea8ad2b3.setContent(html_33c99b4e3f5f4ecaeb86a14f50443986);
+            
+        
+
+        circle_marker_e51cbe6d2a881a4cf7966b8d532b0112.bindPopup(popup_6231a6579fab58979f26383cea8ad2b3)
+        ;
+
+        
+    
+    
+            var circle_marker_ac4961522347de8a265c3e4b77a208f0 = L.circleMarker(
+                [51.66141519, -3.846674419],
+                {"bubblingMouseEvents": true, "color": "#1f9e89", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f9e89", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.034716479702947, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_0357caabd1c59ec077c4c751212d9f36 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_a44d40dae6ebf222c81023d693104829 = $(`<div id="html_a44d40dae6ebf222c81023d693104829" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Skewen <span class="pill">High</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>55.2</b></div>         <div>Rank</div><div><b>6</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Med</div>         <div>Travel to work</div><div>High</div>         <div>Road traffic</div><div>High</div>         <div>Population Density</div><div>High</div>         <div>Competition</div><div>Low</div>       </div>     </div>     </div>`)[0];
+                popup_0357caabd1c59ec077c4c751212d9f36.setContent(html_a44d40dae6ebf222c81023d693104829);
+            
+        
+
+        circle_marker_ac4961522347de8a265c3e4b77a208f0.bindPopup(popup_0357caabd1c59ec077c4c751212d9f36)
+        ;
+
+        
+    
+    
+            var circle_marker_aa16e39eb0921b65ab43081edfa0d6ee = L.circleMarker(
+                [51.58439817, -2.777826444],
+                {"bubblingMouseEvents": true, "color": "#f6c945", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f6c945", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.381840610480321, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_f231d0234ad3ffababa4aa60d4122085 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_52194661bb8d13209cc4ee141b8b8df7 = $(`<div id="html_52194661bb8d13209cc4ee141b8b8df7" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Severn Tunnel Junction <span class="pill">Med</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>35.7</b></div>         <div>Rank</div><div><b>24</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Med</div>         <div>Travel to work</div><div>Med</div>         <div>Road traffic</div><div>Med</div>         <div>Population Density</div><div>Med</div>         <div>Competition</div><div>Low</div>       </div>     </div>     </div>`)[0];
+                popup_f231d0234ad3ffababa4aa60d4122085.setContent(html_52194661bb8d13209cc4ee141b8b8df7);
+            
+        
+
+        circle_marker_aa16e39eb0921b65ab43081edfa0d6ee.bindPopup(popup_f231d0234ad3ffababa4aa60d4122085)
+        ;
+
+        
+    
+    
+            var circle_marker_2cd0b8a10aae2c96157302eabb694f61 = L.circleMarker(
+                [52.71397849, -2.749373007],
+                {"bubblingMouseEvents": true, "color": "#f6c945", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f6c945", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.654312787135275, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_c8091947ce55002ddc833311f512d4bd = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_bdca16181d44bd47083c82d37c45406c = $(`<div id="html_bdca16181d44bd47083c82d37c45406c" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Shrewsbury <span class="pill">Med</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>37.7</b></div>         <div>Rank</div><div><b>20</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Med</div>         <div>Travel to work</div><div>High</div>         <div>Road traffic</div><div>High</div>         <div>Population Density</div><div>High</div>         <div>Competition</div><div>High</div>       </div>     </div>     </div>`)[0];
+                popup_c8091947ce55002ddc833311f512d4bd.setContent(html_bdca16181d44bd47083c82d37c45406c);
+            
+        
+
+        circle_marker_2cd0b8a10aae2c96157302eabb694f61.bindPopup(popup_c8091947ce55002ddc833311f512d4bd)
+        ;
+
+        
+    
+    
+            var circle_marker_3a5d5900ee026e76cdac69f934b32dbc = L.circleMarker(
+                [51.67275216, -4.706515391],
+                {"bubblingMouseEvents": true, "color": "#d1495b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1495b", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.0, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_10c5c34755ce5f736e2b13c05e90c358 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_b4e9fabafa46a8e7d794f434144459ad = $(`<div id="html_b4e9fabafa46a8e7d794f434144459ad" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Tenby <span class="pill">Low</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>3.2</b></div>         <div>Rank</div><div><b>52</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Low</div>         <div>Travel to work</div><div>Low</div>         <div>Road traffic</div><div>Low</div>         <div>Population Density</div><div>Low</div>         <div>Competition</div><div>High</div>       </div>     </div>     </div>`)[0];
+                popup_10c5c34755ce5f736e2b13c05e90c358.setContent(html_b4e9fabafa46a8e7d794f434144459ad);
+            
+        
+
+        circle_marker_3a5d5900ee026e76cdac69f934b32dbc.bindPopup(popup_10c5c34755ce5f736e2b13c05e90c358)
+        ;
+
+        
+    
+    
+            var circle_marker_35a60454d957b5868b34ed576578f9fe = L.circleMarker(
+                [52.58473711, -4.091186685],
+                {"bubblingMouseEvents": true, "color": "#d1495b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1495b", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.110303786090528, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_ced4e614e03e6d6d9ec88445c8451798 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_c97f3b39338d0cd7bd0d609a83968442 = $(`<div id="html_c97f3b39338d0cd7bd0d609a83968442" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Tywyn <span class="pill">Low</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>26.3</b></div>         <div>Rank</div><div><b>38</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Low</div>         <div>Travel to work</div><div>Low</div>         <div>Road traffic</div><div>Low</div>         <div>Population Density</div><div>Low</div>         <div>Competition</div><div>Low</div>       </div>     </div>     </div>`)[0];
+                popup_ced4e614e03e6d6d9ec88445c8451798.setContent(html_c97f3b39338d0cd7bd0d609a83968442);
+            
+        
+
+        circle_marker_35a60454d957b5868b34ed576578f9fe.bindPopup(popup_ced4e614e03e6d6d9ec88445c8451798)
+        ;
+
+        
+    
+    
+            var circle_marker_f1795e4d2e14c58d7610339d105d7bbb = L.circleMarker(
+                [52.65739531, -3.140075286],
+                {"bubblingMouseEvents": true, "color": "#d1495b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1495b", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.3760929387619445, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_191c31c0d56ceaf6c2600cb67f286a74 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_2abc0fdece7a0d3a7949263fb0cb9f04 = $(`<div id="html_2abc0fdece7a0d3a7949263fb0cb9f04" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Welshpool <span class="pill">Low</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>6.1</b></div>         <div>Rank</div><div><b>51</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Low</div>         <div>Travel to work</div><div>Low</div>         <div>Road traffic</div><div>Med</div>         <div>Population Density</div><div>Low</div>         <div>Competition</div><div>High</div>       </div>     </div>     </div>`)[0];
+                popup_191c31c0d56ceaf6c2600cb67f286a74.setContent(html_2abc0fdece7a0d3a7949263fb0cb9f04);
+            
+        
+
+        circle_marker_f1795e4d2e14c58d7610339d105d7bbb.bindPopup(popup_191c31c0d56ceaf6c2600cb67f286a74)
+        ;
+
+        
+    
+    
+            var circle_marker_d8e4ccff9b1360b5b1578c62abc28fc6 = L.circleMarker(
+                [52.85123024, -2.702403326],
+                {"bubblingMouseEvents": true, "color": "#f6c945", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f6c945", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.378709213840185, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_e180f5f541917fc9ee137a84524dacc2 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_cdf54a2c303a5d8ac25e09a50aa1dcdf = $(`<div id="html_cdf54a2c303a5d8ac25e09a50aa1dcdf" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Wem <span class="pill">Med</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>28.3</b></div>         <div>Rank</div><div><b>33</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Med</div>         <div>Travel to work</div><div>Low</div>         <div>Road traffic</div><div>Low</div>         <div>Population Density</div><div>Low</div>         <div>Competition</div><div>Low</div>       </div>     </div>     </div>`)[0];
+                popup_e180f5f541917fc9ee137a84524dacc2.setContent(html_cdf54a2c303a5d8ac25e09a50aa1dcdf);
+            
+        
+
+        circle_marker_d8e4ccff9b1360b5b1578c62abc28fc6.bindPopup(popup_e180f5f541917fc9ee137a84524dacc2)
+        ;
+
+        
+    
+    
+            var circle_marker_504439bf10d65e2746b757527abc4d8e = L.circleMarker(
+                [52.96800214, -2.671788978],
+                {"bubblingMouseEvents": true, "color": "#f6c945", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#f6c945", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.773183857654075, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_2f884dff69013736d0e92ca1a3ebe3e1 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_4f4e9dfd286078714aef730093a184b7 = $(`<div id="html_4f4e9dfd286078714aef730093a184b7" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Whitchurch (Shropshire) <span class="pill">Med</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>31.2</b></div>         <div>Rank</div><div><b>29</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Med</div>         <div>Travel to work</div><div>Low</div>         <div>Road traffic</div><div>Med</div>         <div>Population Density</div><div>Low</div>         <div>Competition</div><div>Med</div>       </div>     </div>     </div>`)[0];
+                popup_2f884dff69013736d0e92ca1a3ebe3e1.setContent(html_4f4e9dfd286078714aef730093a184b7);
+            
+        
+
+        circle_marker_504439bf10d65e2746b757527abc4d8e.bindPopup(popup_2f884dff69013736d0e92ca1a3ebe3e1)
+        ;
+
+        
+    
+    
+            var circle_marker_b2a94d72b51df7487702780669fb3477 = L.circleMarker(
+                [53.05023377, -3.00243964],
+                {"bubblingMouseEvents": true, "color": "#1f9e89", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1f9e89", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.744621724458367, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_0592477c4c1e9f60e9bfba0029cbefde = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_30c1ec08dfc52291b230b4c3f828d116 = $(`<div id="html_30c1ec08dfc52291b230b4c3f828d116" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Wrexham General<span class="pill">High</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>53.1</b></div>         <div>Rank</div><div><b>7</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Med</div>         <div>Travel to work</div><div>High</div>         <div>Road traffic</div><div>High</div>         <div>Population Density</div><div>High</div>         <div>Competition</div><div>Med</div>       </div>     </div>     </div>`)[0];
+                popup_0592477c4c1e9f60e9bfba0029cbefde.setContent(html_30c1ec08dfc52291b230b4c3f828d116);
+            
+        
+
+        circle_marker_b2a94d72b51df7487702780669fb3477.bindPopup(popup_0592477c4c1e9f60e9bfba0029cbefde)
+        ;
+
+        
+    
+    
+            var circle_marker_d04123c784da20210390170c248cd8c1 = L.circleMarker(
+                [51.71545218, -5.041309947],
+                {"bubblingMouseEvents": true, "color": "#d1495b", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d1495b", "fillOpacity": 0.92, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6.567230137310943, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317);
+        
+    
+        var popup_843504697f33f734f27a3a57b72f4baa = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_d902f4e39884f2558258d6fd3e3b6ebb = $(`<div id="html_d902f4e39884f2558258d6fd3e3b6ebb" style="width: 100.0%; height: 100.0%;">     <div class="card">       <div class="title">Milford Haven<span class="pill">Low</span></div>       <div class="kv">         <div>Score (0–100)</div><div><b>7.5</b></div>         <div>Rank</div><div><b>50</b></div>       </div>       <div class="divider"></div>       <div class="kv">         <div>EV ownership</div><div>Low</div>         <div>Travel to work</div><div>Med</div>         <div>Road traffic</div><div>Low</div>         <div>Population Density</div><div>Med</div>         <div>Competition</div><div>High</div>       </div>     </div>     </div>`)[0];
+                popup_843504697f33f734f27a3a57b72f4baa.setContent(html_d902f4e39884f2558258d6fd3e3b6ebb);
+            
+        
+
+        circle_marker_d04123c784da20210390170c248cd8c1.bindPopup(popup_843504697f33f734f27a3a57b72f4baa)
+        ;
+
+        
+    
+    
+            marker_cluster_0c1ba13d04de3964b06ac4dd9fde6317.addTo(map_3172ec66f9851dd20fc396f64a4aa9dc);
+        
+    
+
+        function geo_json_532054bdcc9f67c3a587cb873c3dc6ba_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_532054bdcc9f67c3a587cb873c3dc6ba = L.geoJson(null, {
+                onEachFeature: geo_json_532054bdcc9f67c3a587cb873c3dc6ba_onEachFeature,
+            
+            ...{
+}
+        });
+
+        function geo_json_532054bdcc9f67c3a587cb873c3dc6ba_add (data) {
+            geo_json_532054bdcc9f67c3a587cb873c3dc6ba
+                .addData(data);
+        }
+            geo_json_532054bdcc9f67c3a587cb873c3dc6ba_add({"features": [{"geometry": {"coordinates": [-4.055817027, 52.54437312], "type": "Point"}, "properties": {"name": "Aberdovey\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eAberdovey\u00a0\u003cspan class=\"pill\"\u003eLow\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e25.1\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e40\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.009143131, 51.81699049], "type": "Point"}, "properties": {"name": "Abergavenny\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eAbergavenny\u00a0\u003cspan class=\"pill\"\u003eLow\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e26.9\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e37\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-4.081730862, 52.41399488], "type": "Point"}, "properties": {"name": "Aberystwyth\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eAberystwyth\u00a0\u003cspan class=\"pill\"\u003eLow\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e11.4\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e45\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-4.135645444, 53.22302065], "type": "Point"}, "properties": {"name": "Bangor (Gwynedd)\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eBangor (Gwynedd)\u00a0\u003cspan class=\"pill\"\u003eLow\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e21.4\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e42\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.280856178, 51.40057106], "type": "Point"}, "properties": {"name": "Barry\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eBarry\u00a0\u003cspan class=\"pill\"\u003eHigh\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e40.7\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e16\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-4.030994468, 52.43877642], "type": "Point"}, "properties": {"name": "Bow Street\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eBow Street\u00a0\u003cspan class=\"pill\"\u003eLow\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e27.2\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e36\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.576198713, 51.50750123], "type": "Point"}, "properties": {"name": "Bridgend\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eBridgend\u00a0\u003cspan class=\"pill\"\u003eHigh\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e42.1\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e13\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.053690564, 53.162684], "type": "Point"}, "properties": {"name": "Buckley\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eBuckley\u00a0\u003cspan class=\"pill\"\u003eHigh\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e44.1\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e11\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.248573908, 51.41272919], "type": "Point"}, "properties": {"name": "Cadoxton\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eCadoxton\u00a0\u003cspan class=\"pill\"\u003eHigh\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e40.7\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e15\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.432497958, 52.51612131], "type": "Point"}, "properties": {"name": "Caersws\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eCaersws\u00a0\u003cspan class=\"pill\"\u003eLow\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e25.2\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e39\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-4.305726574, 51.85352838], "type": "Point"}, "properties": {"name": "Carmarthen\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eCarmarthen\u00a0\u003cspan class=\"pill\"\u003eMed\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e33.4\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e25\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-2.88133321, 53.19420982], "type": "Point"}, "properties": {"name": "Chester\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eChester\u00a0\u003cspan class=\"pill\"\u003eHigh\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e55.5\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e5\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.061107367, 52.93260383], "type": "Point"}, "properties": {"name": "Chirk\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eChirk\u00a0\u003cspan class=\"pill\"\u003eMed\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e29.9\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e32\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-2.803602268, 52.53722343], "type": "Point"}, "properties": {"name": "Church Stretton\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eChurch Stretton\u00a0\u003cspan class=\"pill\"\u003eLow\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e10.4\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e48\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-2.672434854, 51.64102089], "type": "Point"}, "properties": {"name": "Chepstow\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eChepstow\u00a0\u003cspan class=\"pill\"\u003eLow\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e11.4\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e46\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.18894883, 51.44608872], "type": "Point"}, "properties": {"name": "Cogan\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eCogan\u00a0\u003cspan class=\"pill\"\u003eHigh\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e80.8\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e1\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.731023099, 53.29806485], "type": "Point"}, "properties": {"name": "Colwyn Bay\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eColwyn Bay\u00a0\u003cspan class=\"pill\"\u003eMed\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e31.2\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e28\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-2.837406994, 52.44235909], "type": "Point"}, "properties": {"name": "Craven Arms\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eCraven Arms\u00a0\u003cspan class=\"pill\"\u003eMed\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e27.3\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e35\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.017141811, 51.65931227], "type": "Point"}, "properties": {"name": "Cwmbran\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eCwmbran\u00a0\u003cspan class=\"pill\"\u003eMed\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e31.0\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e30\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.219900691, 51.42978823], "type": "Point"}, "properties": {"name": "Eastbrook\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eEastbrook\u00a0\u003cspan class=\"pill\"\u003eHigh\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e46.5\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e8\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-2.723700001, 53.29438153], "type": "Point"}, "properties": {"name": "Frodsham\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eFrodsham\u00a0\u003cspan class=\"pill\"\u003eHigh\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e44.1\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e10\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-4.035310785, 51.64867247], "type": "Point"}, "properties": {"name": "Gowerton\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eGowerton\u00a0\u003cspan class=\"pill\"\u003eHigh\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e42.7\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e12\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-4.960435599, 51.80285714], "type": "Point"}, "properties": {"name": "Haverfordwest\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eHaverfordwest\u00a0\u003cspan class=\"pill\"\u003eLow\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e21.2\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e43\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-2.771225123, 53.27522466], "type": "Point"}, "properties": {"name": "Helsby\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eHelsby\u00a0\u003cspan class=\"pill\"\u003eMed\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e35.9\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e23\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-2.709208597, 52.06043656], "type": "Point"}, "properties": {"name": "Hereford\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eHereford\u00a0\u003cspan class=\"pill\"\u003eHigh\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e40.6\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e18\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.049446375, 53.33554568], "type": "Point"}, "properties": {"name": "Heswall\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eHeswall\u00a0\u003cspan class=\"pill\"\u003eHigh\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e60.7\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e4\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.809058371, 53.28421086], "type": "Point"}, "properties": {"name": "Llandudno Junction\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eLlandudno Junction\u00a0\u003cspan class=\"pill\"\u003eLow\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e23.6\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e41\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.802814071, 51.99526662], "type": "Point"}, "properties": {"name": "Llandovery\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eLlandovery\u00a0\u003cspan class=\"pill\"\u003eLow\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e1.5\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e53\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-2.715869693, 52.37067556], "type": "Point"}, "properties": {"name": "Ludlow\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eLudlow\u00a0\u003cspan class=\"pill\"\u003eMed\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e30.6\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e31\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-2.530881967, 51.71403828], "type": "Point"}, "properties": {"name": "Lydney\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eLydney\u00a0\u003cspan class=\"pill\"\u003eMed\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e32.2\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e26\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.854814086, 52.59354374], "type": "Point"}, "properties": {"name": "Machynlleth\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eMachynlleth\u00a0\u003cspan class=\"pill\"\u003eLow\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e9.5\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e49\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.806936923, 51.66220915], "type": "Point"}, "properties": {"name": "Neath\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eNeath\u00a0\u003cspan class=\"pill\"\u003eHigh\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e46.2\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e9\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.063745382, 53.291606], "type": "Point"}, "properties": {"name": "Neston\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eNeston\u00a0\u003cspan class=\"pill\"\u003eHigh\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e42.0\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e14\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.001135979, 51.58870021], "type": "Point"}, "properties": {"name": "Newport (Gwent)\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eNewport (Gwent)\u00a0\u003cspan class=\"pill\"\u003eHigh\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e62.4\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e2\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-4.248711841, 51.68414374], "type": "Point"}, "properties": {"name": "Pembrey and Burry Port\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003ePembrey and Burry Port\u00a0\u003cspan class=\"pill\"\u003eLow\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e11.5\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e44\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-4.907024566, 51.67383466], "type": "Point"}, "properties": {"name": "Pembroke\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003ePembroke\u00a0\u003cspan class=\"pill\"\u003eMed\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e31.7\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e27\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-4.940530927, 51.69368657], "type": "Point"}, "properties": {"name": "Pembroke Dock\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003ePembroke Dock\u00a0\u003cspan class=\"pill\"\u003eLow\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e10.8\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e47\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.044675468, 53.14820802], "type": "Point"}, "properties": {"name": "Penyffordd\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003ePenyffordd\u00a0\u003cspan class=\"pill\"\u003eMed\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e37.5\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e21\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.180690751, 51.43586926], "type": "Point"}, "properties": {"name": "Penarth\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003ePenarth\u00a0\u003cspan class=\"pill\"\u003eHigh\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e61.7\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e3\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-4.102130357, 52.92177264], "type": "Point"}, "properties": {"name": "Porthmadog\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003ePorthmadog\u00a0\u003cspan class=\"pill\"\u003eMed\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e27.6\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e34\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.392344146, 51.52424383], "type": "Point"}, "properties": {"name": "Pontyclun\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003ePontyclun\u00a0\u003cspan class=\"pill\"\u003eMed\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e40.5\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e19\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.781555827, 51.59242776], "type": "Point"}, "properties": {"name": "Port Talbot Parkway\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003ePort Talbot Parkway\u00a0\u003cspan class=\"pill\"\u003eMed\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e36.7\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e22\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.698133964, 51.52621776], "type": "Point"}, "properties": {"name": "Pyle\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003ePyle\u00a0\u003cspan class=\"pill\"\u003eHigh\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e40.6\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e17\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.846674419, 51.66141519], "type": "Point"}, "properties": {"name": "Skewen\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eSkewen\u00a0\u003cspan class=\"pill\"\u003eHigh\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e55.2\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e6\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-2.777826444, 51.58439817], "type": "Point"}, "properties": {"name": "Severn Tunnel Junction\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eSevern Tunnel Junction\u00a0\u003cspan class=\"pill\"\u003eMed\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e35.7\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e24\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-2.749373007, 52.71397849], "type": "Point"}, "properties": {"name": "Shrewsbury\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eShrewsbury\u00a0\u003cspan class=\"pill\"\u003eMed\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e37.7\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e20\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-4.706515391, 51.67275216], "type": "Point"}, "properties": {"name": "Tenby\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eTenby\u00a0\u003cspan class=\"pill\"\u003eLow\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e3.2\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e52\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-4.091186685, 52.58473711], "type": "Point"}, "properties": {"name": "Tywyn\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eTywyn\u00a0\u003cspan class=\"pill\"\u003eLow\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e26.3\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e38\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.140075286, 52.65739531], "type": "Point"}, "properties": {"name": "Welshpool\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eWelshpool\u00a0\u003cspan class=\"pill\"\u003eLow\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e6.1\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e51\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-2.702403326, 52.85123024], "type": "Point"}, "properties": {"name": "Wem\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eWem\u00a0\u003cspan class=\"pill\"\u003eMed\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e28.3\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e33\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-2.671788978, 52.96800214], "type": "Point"}, "properties": {"name": "Whitchurch (Shropshire)\u00a0", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eWhitchurch (Shropshire)\u00a0\u003cspan class=\"pill\"\u003eMed\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e31.2\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e29\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-3.00243964, 53.05023377], "type": "Point"}, "properties": {"name": "Wrexham General", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eWrexham General\u003cspan class=\"pill\"\u003eHigh\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e53.1\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e7\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}, {"geometry": {"coordinates": [-5.041309947, 51.71545218], "type": "Point"}, "properties": {"name": "Milford Haven", "popup_html": "\n    \u003cdiv class=\"card\"\u003e\n      \u003cdiv class=\"title\"\u003eMilford Haven\u003cspan class=\"pill\"\u003eLow\u003c/span\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eScore (0\u2013100)\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e7.5\u003c/b\u003e\u003c/div\u003e\n        \u003cdiv\u003eRank\u003c/div\u003e\u003cdiv\u003e\u003cb\u003e50\u003c/b\u003e\u003c/div\u003e\n      \u003c/div\u003e\n      \u003cdiv class=\"divider\"\u003e\u003c/div\u003e\n      \u003cdiv class=\"kv\"\u003e\n        \u003cdiv\u003eEV ownership\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003eTravel to work\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eRoad traffic\u003c/div\u003e\u003cdiv\u003eLow\u003c/div\u003e\n        \u003cdiv\u003ePopulation Density\u003c/div\u003e\u003cdiv\u003eMed\u003c/div\u003e\n        \u003cdiv\u003eCompetition\u003c/div\u003e\u003cdiv\u003eHigh\u003c/div\u003e\n      \u003c/div\u003e\n    \u003c/div\u003e\n    "}, "type": "Feature"}], "type": "FeatureCollection"});
+        geo_json_532054bdcc9f67c3a587cb873c3dc6ba.setStyle(function(feature) {return feature.properties.style;});
+
+        
+    
+    geo_json_532054bdcc9f67c3a587cb873c3dc6ba.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature => {
+        if (feature === null) {
+            return '';
+        } else if (typeof(feature)=='object') {
+            return JSON.stringify(feature);
+        } else {
+            return feature;
+        }
+    }
+    let fields = ["name"];
+    let aliases = ["Station"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{
+  "sticky": true,
+  "className": "foliumtooltip",
+});
+                     
+    
+    geo_json_532054bdcc9f67c3a587cb873c3dc6ba.bindPopup(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature => {
+        if (feature === null) {
+            return '';
+        } else if (typeof(feature)=='object') {
+            return JSON.stringify(feature);
+        } else {
+            return feature;
+        }
+    }
+    let fields = ["popup_html"];
+    let aliases = ["popup_html"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <td>${handleObject(layer.feature.properties[v]).toLocaleString()}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{
+  "parseHtml": true,
+  "className": "foliumpopup",
+});
+                     
+    
+            geo_json_532054bdcc9f67c3a587cb873c3dc6ba.addTo(map_3172ec66f9851dd20fc396f64a4aa9dc);
+        
+    
+            var geo_json_532054bdcc9f67c3a587cb873c3dc6basearchControl = new L.Control.Search({
+                layer: geo_json_532054bdcc9f67c3a587cb873c3dc6ba,
+                
+                propertyName: 'name',
+                
+                collapsed: false,
+                textPlaceholder: 'Search station...',
+                position:'topleft',
+            
+                initial: false,
+                
+                hideMarkerOnCollapse: true
+            
+                });
+                geo_json_532054bdcc9f67c3a587cb873c3dc6basearchControl.on('search:locationfound', function(e) {
+                    geo_json_532054bdcc9f67c3a587cb873c3dc6ba.setStyle(function(feature){
+                        return feature.properties.style
+                    })
+                    
+                    if(e.layer._popup)
+                        e.layer.openPopup();
+                })
+                geo_json_532054bdcc9f67c3a587cb873c3dc6basearchControl.on('search:collapsed', function(e) {
+                        geo_json_532054bdcc9f67c3a587cb873c3dc6ba.setStyle(function(feature){
+                            return feature.properties.style
+                    });
+                });
+            map_3172ec66f9851dd20fc396f64a4aa9dc.addControl( geo_json_532054bdcc9f67c3a587cb873c3dc6basearchControl );
+
+        
+</script>
+</html>
